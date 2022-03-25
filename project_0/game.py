@@ -3,7 +3,8 @@
 """
 import numpy as np
 
-def random_predict(number: int=1) -> int:
+
+def random_predict(number: int = 1) -> int:
     """Рандомно угадывает число
 
     Args:
@@ -13,7 +14,7 @@ def random_predict(number: int=1) -> int:
         int: количество попыток
     """
     count = 0
-    
+
     while True:
         count += 1
         predict_number = np.random.randint(1, 101)
@@ -21,7 +22,8 @@ def random_predict(number: int=1) -> int:
             break
     return count
 
-def binary_predict(number: int=1) -> int:
+
+def binary_predict(number: int = 1) -> int:
     """Угадывает число алгоритмом бинарного поиска
 
     Args:
@@ -37,12 +39,13 @@ def binary_predict(number: int=1) -> int:
         count += 1
         if predict_number == number:
             break
-        elif predict_number > number: 
+        elif predict_number > number:
             end = predict_number
             predict_number = int(end / 2)
         elif predict_number < number:
             predict_number = predict_number + int((end - predict_number) / 2)
     return count
+
 
 def score_game(random_predict) -> int:
     """За какое количество в среднем попыток угадываем
@@ -56,13 +59,17 @@ def score_game(random_predict) -> int:
     count_ls = []
     np.random.seed(1)
     random_array = np.random.randint(1, 101, size=(1000))
-    
+
     for number in random_array:
         count_ls.append(random_predict(number))
-        
+
     score = int(np.mean(count_ls))
-    print(f'Ваш алгоритм {random_predict.__name__} угадывает число в среднем за:{score} попыток')
+    print(
+        f'Ваш алгоритм {random_predict.__name__} угадывает '
+        'число в среднем за:{score} попыток'
+    )
     return score
+
 
 if __name__ == '__main__':
     score_game(random_predict)
